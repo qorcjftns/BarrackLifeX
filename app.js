@@ -1,11 +1,27 @@
 
-var express = require('express');
-var path = require('path');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+// requires
+var bodyParser  = require('body-parser');
+var express 	= require('express');
+var path 		= require('path');
+var app 		= express();
+var http 		= require('http').Server(app);
+var io 			= require('socket.io')(http);
 
 var index = require('./routes/index');
+
+// Mongodb connection
+var mongodb = require('./db/db.js');
+mongodb.listCollections(function(collections) {
+	collections.toArray(function(err, collInfos) {
+		console.log(collInfos);
+	});
+});
+
+mongodb.listData("blx_users", function(cursor) {
+	cursor.toArray(function(err, data) {
+		console.log(data);
+	});
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

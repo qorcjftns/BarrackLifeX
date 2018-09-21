@@ -16,6 +16,13 @@ var exports = {
 
 	},
 	
+	getCollection: function(collection, callback) {
+		this.getConnection((db) => {
+			var col = db.collection('blx_users');
+			callback(col);
+		});
+	},
+	
 	listCollections: function(callback) {
 		this.getConnection((db) => {
 			callback(db.listCollections());
